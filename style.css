@@ -209,7 +209,28 @@ li.tagset {
 .image-subtext {
   font-size: 0.75em;
   line-height: 1.15em;
+  margin: 0;
 }
 
+.about-pic,
+.about-name {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.about-name {
+  padding-left: 1em;
+  font-size: 1.5em;
+}
+
+.nav-book,
+.nav-pic {
+  width: 140px;
+}
+
+.book-open {
+  width: 280px;
+  float: left;
+}
 
 

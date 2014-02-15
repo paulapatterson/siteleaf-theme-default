@@ -24,6 +24,7 @@
           <hr />
         {% else %}
           <h1 class="content-title">{{title}}</h1>
+          <hr />
         {% endif %}
     </div>
 
@@ -36,10 +37,10 @@
             <li>
               <a href="{{page.url}}"{% if page.url == url %} class="is-current-page"{% endif %}>{{page.title}}</a>
               {% if page.title == 'Book' %}
-                <a href="{{page.url}}"><div class="book-image"></div></a>
+                <div><a href="{{page.url}}"><img class='nav-book' src='/assets/lueneburger_r4L-1.jpg' /></a></div>
               {% endif %}
               {% if page.title == 'About' %}
-                <a href="{{page.url}}"><div class="christoph-image"></div></a>
+                <div><a href="{{page.url}}"><img class='nav-pic' src='/assets/lueneburger_christoph_new_york_original_high-res_bw.jpg' /></a></div>
                 <p class="image-subtext">Christoph Lueneburger is a thought leader on the role of talent in value creation.</p>
               {% endif %}
             </li>
