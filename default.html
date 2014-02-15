@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>{{site.title}} | {{title}}</title>
+  <link rel="alternate" type="application/rss+xml" href="{{site.feed_url}}" />
+  <link rel="stylesheet" type="text/css" href="/style.css" />
+  <script type="text/javascript" src="//use.typekit.net/age8ajo.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body>
+
+  <div class="wrap">
+
+    <div class='content-top'>
+        {% if title == 'Home' %}
+          <h1 class="content-title">A Culture of Purpose</h1>
+          <hr />
+            <ul class='term-definitions'>
+             <li><span class='term'>cul•ture</span> [kʌl-tʃər] noun a set of beliefs and customs: <span class='definition'><em>the air we breathe</em> the kinds of thinking and behaving that define an organization: <em>the way things work around here</em></span></li>
+             <li><span class='term'>pur•pose</span> [pɜr-pəs] noun the reason for which something exists: <span class='definition'><em>why we are here</em> an aspirational and actionable intent: <em>the ideal that inspires us</em></li>
+            </ul>
+          <hr />
+        {% else %}
+          <h1 class="content-title">{{title}}</h1>
+        {% endif %}
+    </div>
+
+    <div class='content-bottom'>
+      <header class="primary-header">
+
+        <ul class="page-menu">
+          {% for page in site.pages %}
+            {% if page.title != 'Blog' %}
+            <li>
+              <a href="{{page.url}}"{% if page.url == url %} class="is-current-page"{% endif %}>{{page.title}}</a>
+              {% if page.title == 'Book' %}
+                <a href="{{page.url}}"><div class="book-image"></div></a>
+              {% endif %}
+              {% if page.title == 'About' %}
+                <a href="{{page.url}}"><div class="christoph-image"></div></a>
+                <p class="image-subtext">Christoph Lueneburger is a thought leader on the role of talent in value creation.</p>
+              {% endif %}
+            </li>
+              {% if page.title == 'Home' %}
+                <li><div><a href='http://www.twitter.com/cultureofpurpose' class='twitter-link'>@cultureofpurpose</a></div></li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+
+        {% for page in site.pages %}
+          {% if page.title == 'Blog' %}
+            <ul class="taxonomy">
+            {% for tag in page.taxonomy['tags'] %}
+              <li><a href="{{tag.url}}">{{tag.value}}</a></li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        {% endfor %}
+
+
+      </header>
+
+      <section class="content">
+
+        {% if title == 'Home' %}
+          <!--<h1 class="content-title">A Culture of Purpose</h1>
+          <hr />
+            <ul class='term-definitions'>
+             <li><span class='term'>cul•ture</span> [kʌl-tʃər] noun a set of beliefs and customs: <span class='definition'><em>the air we breathe</em> the kinds of thinking and behaving that define an organization: <em>the way things work around here</em></span></li>
+             <li><span class='term'>pur•pose</span> [pɜr-pəs] noun the reason for which something exists: <span class='definition'><em>why we are here</em> an aspirational and actionable intent: <em>the ideal that inspires us</em></li>
+            </ul>
+          <hr />-->
+
+          {% for page in site.pages %}
+            {% if page.title == 'Blog' %}
+              {% for post in page.posts limit:1 %}
+                <article>
+                  <h4 class='post-date'>{{page.date | date: "%B %d, %Y" }}</h4>
+                  <h2 class='post-title'><a href="{{post.url}}">{{post.title}}</a></h2>
+                  
+                    {{post.body}}
+                  
+                  <p><a href='/blog' class='previous-posts-link'>older</a></p>
+                </article>
+              {% endfor %}
+            {% endif %}
+
+          {% endfor %}
+
+        {% else %}
+   
+          <!-- <h1 class="content-title">{{title}}</h1> -->
+
+          {% if pages %}
+            {% comment %} Show subpages if there are any available {% endcomment %}
+            <nav class="subpage-menu">
+              {% for subpage in pages %}
+                <a href="{{subpage.url}}">{{subpage.title}}</a>
+              {% endfor %}
+            </nav>
+          {% endif %}
+
+          {{body}}
+
+        {% endif %}
+
+        {% if type == "post" %}
+          {% comment %} Show tagsets if this is a post {% endcomment %}
+
+          {% for tagset in taxonomy %}
+            <ul class="taxonomy">
+              <li class="tagset">{{tagset.key}}: </li>
+              {% for tag in tagset %}
+                <li><a href="{{tag.url}}">{{tag.value}}</a></li>
+              {% endfor %}
+            </ul>
+          {% endfor %}
+
+        {% else %}
+          {% comment %} Loop through any posts and show an excerpt {% endcomment %}
+          {% for post in posts %}
+            <article class="post-preview">
+              <h4 class='post-date'>{{post.date | date: "%B %d, %Y" }}</h4>
+              <h2 class='post-title'><a href="{{post.url}}">{{post.title}}</a></h2>
+              <div class='post-text'>
+                {{post.body | strip_html | truncatewords: 100}}
+              </div>
+              {% for tagset in post.taxonomy %}
+                <ul class="taxonomy taxonomy-preview">
+                  <li class="tagset">{{tagset.key}}: </li>
+                  {% for tag in tagset %}
+                    <li><a href="{{tag.url}}">{{tag.value}}</a></li>
+                  {% endfor %}
+                </ul>
+              {% endfor %}
+
+              <p><a href="{{post.url}}">more</a>
+            </article>
+          {% endfor %}
+
+        {% endif %}
+
+        {% if parent %}
+          <p><a href="{{parent.url}}">&larr; back to {{parent.title}}</a></p>
+        {% endif %}
+
+      </section><!-- /content -->
+    </div><!-- content bottom -->
+  </div><!-- /wrap -->
+</body>
+</html>
